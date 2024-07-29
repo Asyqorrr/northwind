@@ -1,4 +1,6 @@
 migrate create -ext sql -dir db/migrations -seq init_schema
 
-
 migrate -path db/migrations -database "postgresql://postgres:admin@localhost:5432/northwind_db30?sslmode=disable" -verbose up
+
+sqlc init
+sqlc generate
