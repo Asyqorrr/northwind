@@ -6,13 +6,13 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
-type CategoryService struct {
+type ProductService struct {
 	*db.Queries
 }
 
 // constructor
-func NewCategoryService(dbConn *pgxpool.Conn) *CategoryService {
-	return &CategoryService{
+func NewProductService(dbConn *pgxpool.Conn) *ProductService {
+	return &ProductService{
 		Queries: db.New(dbConn),
 	}
 }
