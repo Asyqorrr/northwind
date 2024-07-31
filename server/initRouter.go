@@ -8,11 +8,22 @@ import (
 
 func InitRouter(handler *controller.ControllerManager) *gin.Engine {
 	router := gin.Default()
+
+	// set a lower memory limit for multipart form
+	router.MaxMultipartMemory = 8 << 20 //8Mib
+	router.Static("/static", "./public")
+
 	api := router.Group("/api")
 
 	api.GET("/home", func(ctx *gin.Context) {
 		ctx.String(200, "Hello Gin FB")
 	})
+
+	// GET = READ
+	// POST = CREATE
+	// PUT = UPDATE PARTIAL
+	// PATCH = UPDATE 1 ATTRIBUTE
+	// DELETE = DELETE
 
 	categoryRoute := api.Group("/category")
 	{
@@ -25,5 +36,20 @@ func InitRouter(handler *controller.ControllerManager) *gin.Engine {
 
 	}
 
+	productRoute := api.Group("/product")
+	{
+		productRoute.GET("", handler.FindAllProduct)
+		productRoute.GET("/", handler.FindAllProduct)
+		productRoute.GET("/:id", handler.FindProductById)
+		
+		productRoute.GET("/paging", handler.FindAllProductPaging)
+
+		productRoute.POST("/", handler.CreateProduct)
+
+		productRoute.PUT("/:id", handler.UpdateProduct)
+
+		productRoute.DELETE("/:id", handler.DeleteProduct)
+	}
+	
 	return router
 }

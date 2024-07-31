@@ -11,13 +11,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type categoryController struct {
+type CategoryController struct {
 	serviceManager *services.ServiceManager
 }
 
 // constructor
-func NewCategoryController(servicesManager services.ServiceManager) *categoryController {
-	return &categoryController{
+func NewCategoryController(servicesManager services.ServiceManager) *CategoryController {
+	return &CategoryController{
 		serviceManager: &servicesManager,
 	}
 }
@@ -33,7 +33,7 @@ type categoryUpdateReq struct {
 	Description  *string `json:"description"`
 }
 
-func (handler *categoryController) UpdateCategory(c *gin.Context) {
+func (handler *CategoryController) UpdateCategory(c *gin.Context) {
 	var payload *categoryUpdateReq
 	cateId, _ := strconv.Atoi(c.Param("id"))
 
@@ -48,11 +48,9 @@ func (handler *categoryController) UpdateCategory(c *gin.Context) {
 		Description:  payload.Description,
 	}
 
-	category, err := handler.serviceManager.UpdateCategory(c, *args)
+	category, err := handler.serviceManager.CategoryService.UpdateCategory(c, *args)
 	if err != nil {
-		if err != nil {
-			c.JSON(http.StatusNotFound, models.ErrDataNotFound)
-		}
+		
 		c.JSON(http.StatusInternalServerError, models.NewError(err))
 		return
 	}
@@ -60,10 +58,10 @@ func (handler *categoryController) UpdateCategory(c *gin.Context) {
 
 }
 
-func (handler *categoryController) DeleteCategory(c *gin.Context) {
+func (handler *CategoryController) DeleteCategory(c *gin.Context) {
 	cateId, _ := strconv.Atoi(c.Param("id"))
 
-	_, err := handler.serviceManager.FindCategoryById(c, int32(cateId))
+	_, err := handler.serviceManager.CategoryService.FindCategoryById(c, int32(cateId))
 
 	if err != nil {
 		if err == sql.ErrNoRows {
@@ -74,11 +72,9 @@ func (handler *categoryController) DeleteCategory(c *gin.Context) {
 		return
 	}
 
-	err = handler.serviceManager.DeleteCategory(c, int32(cateId))
+	err = handler.serviceManager.CategoryService.DeleteCategory(c, int32(cateId))
 	if err != nil {
-		if err != nil {
-			c.JSON(http.StatusNotFound, models.ErrDataNotFound)
-		}
+		
 		c.JSON(http.StatusInternalServerError, models.NewError(err))
 		return
 	}
@@ -86,9 +82,9 @@ func (handler *categoryController) DeleteCategory(c *gin.Context) {
 
 }
 
-func (handler *categoryController) GetCategoryById(c *gin.Context) {
+func (handler *CategoryController) GetCategoryById(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
-	category, err := handler.serviceManager.FindCategoryById(c, int32(id))
+	category, err := handler.serviceManager.CategoryService.FindCategoryById(c, int32(id))
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, models.NewError(err))
 		return
@@ -97,11 +93,10 @@ func (handler *categoryController) GetCategoryById(c *gin.Context) {
 }
 
 // create category
-func (handler *categoryController) CreateCategory(c *gin.Context) {
+func (handler *CategoryController) CreateCategory(c *gin.Context) {
 	var payload *categoryCreateReq
 
 	if err := c.ShouldBindJSON(&payload); err != nil {
-		//c.JSON(http.StatusUnprocessableEntity, gin.H{"status": "fail", "message": err})
 		c.JSON(http.StatusUnprocessableEntity, models.NewValidationError(err))
 		return
 	}
@@ -111,19 +106,18 @@ func (handler *categoryController) CreateCategory(c *gin.Context) {
 		Description:  payload.Description,
 	}
 
-	category, err := handler.serviceManager.CreateCategory(c, args)
+	category, err := handler.serviceManager.CategoryService.CreateCategory(c, args)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, models.NewError(err))
+		c.JSON(http.StatusInternalServerError, models.NewValidationError(err))
 		return
 	}
 
 	c.JSON(http.StatusCreated, category)
-
 }
 
 // get list category
-func (handler *categoryController) GetListCategory(c *gin.Context) {
-	categories, err := handler.serviceManager.FindAllCategory(c)
+func (handler *CategoryController) GetListCategory(c *gin.Context) {
+	categories, err := handler.serviceManager.CategoryService.FindAllCategory(c)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, models.ErrDataNotFound)
 	}

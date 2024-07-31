@@ -10,10 +10,18 @@ import (
 
 type Querier interface {
 	CreateCategory(ctx context.Context, arg CreateCategoryParams) (*Category, error)
+	CreateProduct(ctx context.Context, arg CreateProductParams) (*Product, error)
 	DeleteCategory(ctx context.Context, categoryID int32) error
+	DeleteProduct(ctx context.Context, productID int16) error
 	FindAllCategory(ctx context.Context) ([]*Category, error)
+	FindAllProduct(ctx context.Context) ([]*Product, error)
+	FindAllProductPaging(ctx context.Context, arg FindAllProductPagingParams) ([]*Product, error)
 	FindCategoryById(ctx context.Context, categoryID int32) (*Category, error)
+	FindProductById(ctx context.Context, productID int16) (*Product, error)
 	UpdateCategory(ctx context.Context, arg UpdateCategoryParams) (*Category, error)
+	UpdateProduct(ctx context.Context, arg UpdateProductParams) (*Product, error)
 }
 
 var _ Querier = (*Queries)(nil)
+
+

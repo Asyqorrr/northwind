@@ -86,6 +86,7 @@ type Product struct {
 	UnitsOnOrder    *int16   `json:"units_on_order"`
 	ReorderLevel    *int16   `json:"reorder_level"`
 	Discontinued    int32    `json:"discontinued"`
+	ProductImage    *string  `json:"product_image"`
 }
 
 type Region struct {

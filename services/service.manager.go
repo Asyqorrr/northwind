@@ -3,11 +3,13 @@ package services
 import "github.com/jackc/pgx/v5/pgxpool"
 
 type ServiceManager struct {
-	*categoryService
+	*CategoryService
+	*ProductService
 }
 
 func NewServiceManager(dbConn *pgxpool.Conn) *ServiceManager {
 	return &ServiceManager{
-		categoryService: NewCategoryService(dbConn),
+		CategoryService: NewCategoryService(dbConn),
+		ProductService: NewProductService(dbConn),
 	}
 }

@@ -3,11 +3,13 @@ package controller
 import "b30northwindapi/services"
 
 type ControllerManager struct {
-	*categoryController
+	*CategoryController
+	*ProductController
 }
 
 func NewControllerManager(serviceManager *services.ServiceManager) *ControllerManager {
 	return &ControllerManager{
-		categoryController: NewCategoryController(*serviceManager),
+		CategoryController: NewCategoryController(*serviceManager),
+		ProductController: NewProductController(*serviceManager),
 	}
 }

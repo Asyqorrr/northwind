@@ -15,7 +15,7 @@ func main() {
 
 	log.Println("Initializing database")
 	dbHandler := server.InitDatabase(config)
-
+ 
 	//log.Println(dbHandler)
 
 	log.Println("Initializig HTTP sever")
