@@ -1,6 +1,6 @@
 
 
-CREATE TABLE customers (
+CREATE TABLE IF NOT EXISTS customers (
     customer_id character varying(5) NOT NULL PRIMARY KEY,
     company_name character varying(40) NOT NULL,
     contact_name character varying(30),
@@ -21,7 +21,7 @@ CREATE TABLE customers (
 -- Name: employees; Type: TABLE; Schema:  Owner: -
 --
 
-CREATE TABLE employees (
+CREATE TABLE IF NOT EXISTS employees (
     employee_id smallint NOT NULL PRIMARY KEY,
     last_name character varying(20) NOT NULL,
     first_name character varying(10) NOT NULL,
@@ -47,7 +47,7 @@ CREATE TABLE employees (
 -- Name: order_details; Type: TABLE; Schema:  Owner: -
 --
 
-CREATE TABLE order_details (
+CREATE TABLE IF NOT EXISTS order_details (
     order_id smallint NOT NULL,
     product_id smallint NOT NULL,
     unit_price real NOT NULL,
@@ -60,7 +60,7 @@ CREATE TABLE order_details (
 -- Name: orders; Type: TABLE; Schema:  Owner: -
 --
 
-CREATE TABLE orders (
+CREATE TABLE IF NOT EXISTS orders (
     order_id smallint NOT NULL PRIMARY KEY,
     customer_id character varying(5),
     employee_id smallint,
@@ -82,7 +82,7 @@ CREATE TABLE orders (
 -- Name: products; Type: TABLE; Schema:  Owner: -
 --
 
-CREATE TABLE products (
+CREATE TABLE IF NOT EXISTS products (
     product_id smallint NOT NULL PRIMARY KEY,
     product_name character varying(40) NOT NULL,
     supplier_id smallint,
@@ -100,7 +100,7 @@ CREATE TABLE products (
 -- Name: region; Type: TABLE; Schema:  Owner: -
 --
 
-CREATE TABLE region (
+CREATE TABLE IF NOT EXISTS region (
     region_id smallint NOT NULL PRIMARY KEY,
     region_description character varying(60) NOT NULL
 );
@@ -110,7 +110,7 @@ CREATE TABLE region (
 -- Name: shippers; Type: TABLE; Schema:  Owner: -
 --
 
-CREATE TABLE shippers (
+CREATE TABLE IF NOT EXISTS shippers (
     shipper_id smallint NOT NULL PRIMARY KEY,
     company_name character varying(40) NOT NULL,
     phone character varying(24)
@@ -121,7 +121,7 @@ CREATE TABLE shippers (
 -- Name: suppliers; Type: TABLE; Schema:  Owner: -
 --
 
-CREATE TABLE suppliers (
+CREATE TABLE IF NOT EXISTS suppliers (
     supplier_id smallint NOT NULL PRIMARY KEY,
     company_name character varying(40) NOT NULL,
     contact_name character varying(30),

@@ -40,16 +40,29 @@ func InitRouter(handler *controller.ControllerManager) *gin.Engine {
 	{
 		productRoute.GET("", handler.FindAllProduct)
 		productRoute.GET("/", handler.FindAllProduct)
-		productRoute.GET("/:id", handler.FindProductById)
-		
-		productRoute.GET("/paging", handler.FindAllProductPaging)
-
 		productRoute.POST("/", handler.CreateProduct)
+		productRoute.GET("/paging", handler.FindAllProductPaging)
+		productRoute.GET("/:id", handler.FindProductById)
+
+		productRoute.POST("/multiUpload", handler.UploadMultipleProductImage)
 
 		productRoute.PUT("/:id", handler.UpdateProduct)
 
 		productRoute.DELETE("/:id", handler.DeleteProduct)
 	}
-	
+
+	cartRoute := api.Group("/cart")
+	{
+		cartRoute.GET("/", handler.FindAllCart)
+		cartRoute.GET("/:id", handler.FindCartById)
+		cartRoute.GET("/paging", handler.FindAllCartPaging)
+		
+		cartRoute.POST("/", handler.CreateCart)
+
+		cartRoute.PUT("/:id", handler.UpdateCart)
+		
+		cartRoute.DELETE("/:id", handler.DeleteCart)
+	}
+
 	return router
 }

@@ -9,19 +9,23 @@ import (
 )
 
 type Querier interface {
+	CreateCarts(ctx context.Context, arg CreateCartsParams) (*Cart, error)
 	CreateCategory(ctx context.Context, arg CreateCategoryParams) (*Category, error)
 	CreateProduct(ctx context.Context, arg CreateProductParams) (*Product, error)
+	DeleteCarts(ctx context.Context, cartID int32) error
 	DeleteCategory(ctx context.Context, categoryID int32) error
 	DeleteProduct(ctx context.Context, productID int16) error
+	FindAllCarts(ctx context.Context) ([]*Cart, error)
+	FindAllCartsPaging(ctx context.Context, arg FindAllCartsPagingParams) ([]*Cart, error)
 	FindAllCategory(ctx context.Context) ([]*Category, error)
 	FindAllProduct(ctx context.Context) ([]*Product, error)
 	FindAllProductPaging(ctx context.Context, arg FindAllProductPagingParams) ([]*Product, error)
+	FindCartsbyId(ctx context.Context, cartID int32) (*Cart, error)
 	FindCategoryById(ctx context.Context, categoryID int32) (*Category, error)
 	FindProductById(ctx context.Context, productID int16) (*Product, error)
+	UpdateCarts(ctx context.Context, arg UpdateCartsParams) (*Cart, error)
 	UpdateCategory(ctx context.Context, arg UpdateCategoryParams) (*Category, error)
 	UpdateProduct(ctx context.Context, arg UpdateProductParams) (*Product, error)
 }
 
 var _ Querier = (*Queries)(nil)
-
-

@@ -33,6 +33,12 @@ type categoryUpdateReq struct {
 	Description  *string `json:"description"`
 }
 
+
+
+
+
+
+
 func (handler *CategoryController) UpdateCategory(c *gin.Context) {
 	var payload *categoryUpdateReq
 	cateId, _ := strconv.Atoi(c.Param("id"))
@@ -50,13 +56,19 @@ func (handler *CategoryController) UpdateCategory(c *gin.Context) {
 
 	category, err := handler.serviceManager.CategoryService.UpdateCategory(c, *args)
 	if err != nil {
-		
 		c.JSON(http.StatusInternalServerError, models.NewError(err))
 		return
 	}
 	c.JSON(http.StatusCreated, category)
 
 }
+
+
+
+
+
+
+
 
 func (handler *CategoryController) DeleteCategory(c *gin.Context) {
 	cateId, _ := strconv.Atoi(c.Param("id"))

@@ -27,13 +27,15 @@ INSERT INTO products(
 
 -- name: UpdateProduct :one
 UPDATE products
-	SET  product_name=$1, supplier_id=$2, category_id=$3, 
-	quantity_per_unit=$4, unit_price=$5, units_in_stock=$6, 
-	units_on_order=$7, reorder_level=$8, discontinued=$9,product_image=$10
-	WHERE product_id=$10
+	SET  product_name=$2, supplier_id=$3, category_id=$4, 
+	quantity_per_unit=$5, unit_price=$6, units_in_stock=$7, 
+	units_on_order=$8, reorder_level=$9, discontinued=$10,product_image=$11
+	WHERE product_id=$1
 	RETURNING *;
 
 -- name: DeleteProduct :exec
 DELETE FROM products
 	WHERE product_id=$1
     RETURNING *;
+
+	

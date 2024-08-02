@@ -184,14 +184,15 @@ func (q *Queries) FindProductById(ctx context.Context, productID int16) (*Produc
 
 const updateProduct = `-- name: UpdateProduct :one
 UPDATE products
-	SET  product_name=$1, supplier_id=$2, category_id=$3, 
-	quantity_per_unit=$4, unit_price=$5, units_in_stock=$6, 
-	units_on_order=$7, reorder_level=$8, discontinued=$9,product_image=$10
-	WHERE product_id=$10
+	SET  product_name=$2, supplier_id=$3, category_id=$4, 
+	quantity_per_unit=$5, unit_price=$6, units_in_stock=$7, 
+	units_on_order=$8, reorder_level=$9, discontinued=$10,product_image=$11
+	WHERE product_id=$1
 	RETURNING product_id, product_name, supplier_id, category_id, quantity_per_unit, unit_price, units_in_stock, units_on_order, reorder_level, discontinued, product_image
 `
 
 type UpdateProductParams struct {
+	ProductID       int16    `json:"product_id"`
 	ProductName     string   `json:"product_name"`
 	SupplierID      *int16   `json:"supplier_id"`
 	CategoryID      *int16   `json:"category_id"`
@@ -206,6 +207,7 @@ type UpdateProductParams struct {
 
 func (q *Queries) UpdateProduct(ctx context.Context, arg UpdateProductParams) (*Product, error) {
 	row := q.db.QueryRow(ctx, updateProduct,
+		arg.ProductID,
 		arg.ProductName,
 		arg.SupplierID,
 		arg.CategoryID,
