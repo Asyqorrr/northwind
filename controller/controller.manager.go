@@ -6,6 +6,7 @@ type ControllerManager struct {
 	*CategoryController
 	*ProductController
 	*CartController
+	*OrderController
 }
 
 func NewControllerManager(serviceManager *services.ServiceManager) *ControllerManager {
@@ -13,5 +14,6 @@ func NewControllerManager(serviceManager *services.ServiceManager) *ControllerMa
 		CategoryController: NewCategoryController(*serviceManager),
 		ProductController:  NewProductController(*serviceManager),
 		CartController:  NewCartController(*serviceManager),
+		OrderController:  NewOrderController(serviceManager),
 	}
 }

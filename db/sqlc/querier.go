@@ -9,22 +9,33 @@ import (
 )
 
 type Querier interface {
+	CreateCart(ctx context.Context, arg CreateCartParams) (*Cart, error)
 	CreateCarts(ctx context.Context, arg CreateCartsParams) (*Cart, error)
 	CreateCategory(ctx context.Context, arg CreateCategoryParams) (*Category, error)
+	CreateOrder(ctx context.Context, arg CreateOrderParams) (*Order, error)
 	CreateProduct(ctx context.Context, arg CreateProductParams) (*Product, error)
+	DeleteCart(ctx context.Context, cartID int32) error
 	DeleteCarts(ctx context.Context, cartID int32) error
 	DeleteCategory(ctx context.Context, categoryID int32) error
+	DeleteOrder(ctx context.Context, orderID int16) error
 	DeleteProduct(ctx context.Context, productID int16) error
 	FindAllCarts(ctx context.Context) ([]*Cart, error)
 	FindAllCartsPaging(ctx context.Context, arg FindAllCartsPagingParams) ([]*Cart, error)
 	FindAllCategory(ctx context.Context) ([]*Category, error)
+	FindAllOrder(ctx context.Context) ([]*Order, error)
 	FindAllProduct(ctx context.Context) ([]*Product, error)
 	FindAllProductPaging(ctx context.Context, arg FindAllProductPagingParams) ([]*Product, error)
+	FindCartByCustomerAndProduct(ctx context.Context, arg FindCartByCustomerAndProductParams) (*FindCartByCustomerAndProductRow, error)
+	FindCartByCustomerId(ctx context.Context, customerID string) ([]*FindCartByCustomerIdRow, error)
+	FindCartByCustomerPaging(ctx context.Context, arg FindCartByCustomerPagingParams) ([]*FindCartByCustomerPagingRow, error)
 	FindCartsbyId(ctx context.Context, cartID int32) (*Cart, error)
 	FindCategoryById(ctx context.Context, categoryID int32) (*Category, error)
+	FindOrderById(ctx context.Context, orderID int16) (*Order, error)
 	FindProductById(ctx context.Context, productID int16) (*Product, error)
+	UpdateCartQty(ctx context.Context, arg UpdateCartQtyParams) (*Cart, error)
 	UpdateCarts(ctx context.Context, arg UpdateCartsParams) (*Cart, error)
 	UpdateCategory(ctx context.Context, arg UpdateCategoryParams) (*Category, error)
+	UpdateOrderShip(ctx context.Context, arg UpdateOrderShipParams) (*Order, error)
 	UpdateProduct(ctx context.Context, arg UpdateProductParams) (*Product, error)
 }
 

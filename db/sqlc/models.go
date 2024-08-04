@@ -11,7 +11,7 @@ import (
 type Cart struct {
 	CartID        int32       `json:"cart_id"`
 	CustomerID    string      `json:"customer_id"`
-	ProductID     *int32      `json:"product_id"`
+	ProductID     int32       `json:"product_id"`
 	UnitPrice     *float32    `json:"unit_price"`
 	Qty           *int32      `json:"qty"`
 	CartCreatedOn pgtype.Date `json:"cart_created_on"`

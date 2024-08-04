@@ -20,7 +20,7 @@ VALUES ($1, $2, $3, $4, $5)
 
 type CreateCartsParams struct {
 	CustomerID    string      `json:"customer_id"`
-	ProductID     *int32      `json:"product_id"`
+	ProductID     int32       `json:"product_id"`
 	UnitPrice     *float32    `json:"unit_price"`
 	Qty           *int32      `json:"qty"`
 	CartCreatedOn pgtype.Date `json:"cart_created_on"`
@@ -161,7 +161,7 @@ RETURNING cart_id, customer_id, product_id, unit_price, qty, cart_created_on
 type UpdateCartsParams struct {
 	CartID        int32       `json:"cart_id"`
 	CustomerID    string      `json:"customer_id"`
-	ProductID     *int32      `json:"product_id"`
+	ProductID     int32       `json:"product_id"`
 	UnitPrice     *float32    `json:"unit_price"`
 	Qty           *int32      `json:"qty"`
 	CartCreatedOn pgtype.Date `json:"cart_created_on"`
